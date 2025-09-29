@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>♻️ Rede Comunitária de Trocas e Doações</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="user-profile">
+            <img src="avatar.png" alt="Avatar" id="user-avatar">
+            <h4 id="user-name">Usuário Comunitário</h4>
+            <p id="user-points">🪙 150 Pontos</p>
+        </div>
+        <ul>
+            <li onclick="showSection('dashboard')" class="active"><i class="fas fa-home"></i> Dashboard</li>
+            <li onclick="showSection('catalogo')"><i class="fas fa-box"></i> Catálogo de Itens</li>
+            <li onclick="showSection('cadastro')"><i class="fas fa-plus-circle"></i> Publicar Item</li>
+            <li onclick="showSection('comunidade')"><i class="fas fa-users"></i> Comunidade & Mapa</li>
+            <li onclick="showSection('perfil')"><i class="fas fa-user-cog"></i> Meu Perfil</li>
+        </ul>
+    </nav>
+
+    <main class="content">
+
+        <section id="dashboard" class="page-section active">
+            <h2><i class="fas fa-tachometer-alt"></i> Dashboard de Engajamento</h2>
+            <div class="stats-grid">
+                <div class="stat-card doacao-bg">
+                    <h4>Doações Realizadas</h4>
+                    <p id="donations-count">5</p>
+                </div>
+                <div class="stat-card troca-bg">
+                    <h4>Trocas Concluídas</h4>
+                    <p id="trades-count">2</p>
+                </div>
+                <div class="stat-card pontos-bg">
+                    <h4>Nível de Herói Local</h4>
+                    <p id="user-level">Nível 3</p>
+                </div>
+            </div>
+            <h3>Missões da Semana <i class="fas fa-trophy"></i></h3>
+            <ul id="missions-list" class="mission-list">
+                <li><i class="far fa-circle"></i> Cadastrar um item com foto (+20 Pontos)</li>
+                <li><i class="far fa-circle"></i> Fazer a primeira troca (+50 Pontos)</li>
+            </ul>
+        </section>
+
+        <section id="cadastro" class="page-section">
+            <h2><i class="fas fa-plus-circle"></i> Publicar Novo Item</h2>
+            <form id="form-cadastro-avancado" class="cadastro-form">
+                <div class="form-group">
+                    <label for="tipo-publicacao">O que você fará?</label>
+                    <select id="tipo-publicacao" required>
+                        <option value="doacao">🤝 Doar</option>
+                        <option value="troca">🔄 Trocar</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nome-item">Nome do Item:</label>
+                    <input type="text" id="nome-item" required placeholder="Ex: Livro de receitas novo">
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoria:</label>
+                    <select id="categoria" required>
+                        <option value="livros">Livros e Mídias</option>
+                        <option value="roupas">Roupas e Calçados</option>
+                        <option value="eletronicos">Eletrônicos</option>
+                        <option value="casa">Casa e Decoração</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descricao-item">Descrição detalhada:</label>
+                    <textarea id="descricao-item" rows="4" required placeholder="Estado de conservação, por que está doando/trocando."></textarea>
+                </div>
+                
+                <div class="form-group" id="troca-interesse-group">
+                    <label for="interesse-troca">Interesse na Troca (Se for Troca):</label>
+                    <input type="text" id="interesse-troca" placeholder="Ex: Preciso de material escolar ou ferramentas.">
+                </div>
+
+                <div class="form-group">
+                    <label for="foto-item">Adicionar Fotos:</label>
+                    <input type="file" id="foto-item" accept="image/*" multiple>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="localizacao-publica" checked>
+                    <label for="localizacao-publica">Usar minha localização aproximada no mapa</label>
+                </div>
+
+                <button type="submit" class="btn-primary"><i class="fas fa-upload"></i> Publicar</button>
+            </form>
+        </section>
+
+        <section id="catalogo" class="page-section">
+            <h2><i class="fas fa-box"></i> Catálogo de Itens Disponíveis</h2>
+            <div class="filter-bar">
+                <input type="text" placeholder="Buscar por nome..." id="search-input">
+                <select id="filter-tipo">
+                    <option value="todos">Todos</option>
+                    <option value="doacao">Doação</option>
+                    <option value="troca">Troca</option>
+                </select>
+                <select id="filter-categoria">
+                    <option value="todas">Todas as Categorias</option>
+                    </select>
+            </div>
+            <div id="catalogo-container" class="item-grid">
+                </div>
+        </section>
+        
+        <section id="comunidade" class="page-section">
+            <h2><i class="fas fa-map-marked-alt"></i> Mapa Comunitário de Doadores</h2>
+            <p>Encontre itens próximos a você (raio de 5km).</p>
+            <div id="map-placeholder" style="height: 400px; background: #e0e0e0; border-radius: 8px;">
+                Mapa interativo de Geolocalização
+            </div>
+            
+            <h3><i class="fas fa-comments"></i> Mural de Recados Comunitários</h3>
+            <div id="mural-recados" class="mural-container">
+                </div>
+        </section>
+
+        <section id="perfil" class="page-section">
+            <h2><i class="fas fa-user-cog"></i> Configurações de Perfil</h2>
+            <form id="form-perfil">
+                <div class="form-group">
+                    <label for="perfil-nome">Nome Público:</label>
+                    <input type="text" id="perfil-nome" value="Usuário Comunitário">
+                </div>
+                <div class="form-group">
+                    <label for="perfil-email">Email (Não será divulgado):</label>
+                    <input type="email" id="perfil-email" value="user@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="perfil-bairro">Localização Padrão (para filtros):</label>
+                    <input type="text" id="perfil-bairro" placeholder="Ex: Bairro Central, Curitiba">
+                </div>
+                <div class="form-group">
+                    <label for="perfil-bio">Sobre mim:</label>
+                    <textarea id="perfil-bio" rows="3" placeholder="O que você costuma doar/trocar?"></textarea>
+                </div>
+                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Alterações</button>
+            </form>
+        </section>
+        
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
